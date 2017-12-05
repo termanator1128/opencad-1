@@ -748,6 +748,24 @@ function priorityTone(type)
             recurringButton.text("Priority Tone");
         }
     }
+    else if (type == "panic")
+    {
+        var panic = $('#panic');
+        var value = panic.val();
+
+        if (value == "0")
+        {
+            panic.val("1");
+            panic.text("Panic - ACTIVE");
+            sendTone("panic", "start");
+        }
+        else if (value == "1")
+        {
+            sendTone("panic", "stop");
+            panic.val("0");
+            panic.text("Panic");
+        }
+    }
 
  function sendTone(name, action)
  {
@@ -836,6 +854,7 @@ function checkTones()
             if (data['priority'] == "ACTIVE")
             {
                 var tag = $('#priorityToneAudio')[0];
+				console.log(tag)
                 if (document.cookie.indexOf('priority=') == '-1'){
                     document.cookie = "priority=played;";
                     tag.play();
@@ -852,6 +871,29 @@ function checkTones()
                 document.cookie = "priority=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
                 $('#priorityTone').val('0');
                 $('#priorityTone').text("10-3 Tone");
+
+            }
+			
+            if (data['panic'] == "ACTIVE")
+            {
+                var tag = $('#panic')[0];
+				console.log(tag)
+                if (document.cookie.indexOf('priority=') == '-1'){
+                    document.cookie = "panic=played;";
+                    tag.play();
+
+                    $('#panic').val('1');
+                    $('#panic').text("10-3 Tone - ACTIVE");
+                } else {
+                    //Do nothing
+                }
+            }
+            else if (data['panic'] == "INACTIVE")
+            {
+                // Make sure the played cookie is unset
+                document.cookie = "priority=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+                $('#panic').val('0');
+                $('#panic').text("10-3 Tone");
 
             }
 
