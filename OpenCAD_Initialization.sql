@@ -496,8 +496,32 @@ CREATE TABLE `genders` (
 --
 
 INSERT INTO `genders` (`id`, `genders`) VALUES
-(0, 'Male'),
-(1, 'Female');
+(0, 'Agender'),
+(1, 'Androgyne'),
+(2, 'Androgynous'),
+(3, 'Bigender'),
+(4, 'Cis Female'),
+(5, 'Cis Male'),
+(6, 'Female'),
+(7, 'Gender Fluid'),
+(8, 'Gender Nonconforming'),
+(9, 'Gender Questioning'),
+(10, 'Gender Variant'),
+(11, 'Genderqueer'),
+(12, 'Intersex'),
+(13, 'Male'),
+(14, 'Neither'),
+(15, 'Neutrois'),
+(16, 'Non-binary'),
+(17, 'Other'),
+(18, 'Pangender'),
+(19, 'Transgender Female'),
+(20, 'Transgender Male'),
+(21, 'Transgender Person'),
+(22, 'Transsexual Female'),
+(23, 'Transsexual Male'),
+(24, 'Transsexual Person'),
+(25, 'Two-Spirit');
 
 -- --------------------------------------------------------
 
@@ -626,7 +650,6 @@ CREATE TABLE `ncic_warrants` (
 CREATE TABLE `ncic_weapons` (
   `id` int(11) NOT NULL,
   `name_id` int(11) NOT NULL COMMENT 'Links to ncic_names db for driver information',
-  `serial` varchar(255) NOT NULL,
   `weapon_type` varchar(255) NOT NULL,
   `weapon_name` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -961,7 +984,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `identifier`, `password_reset`, `approved`) VALUES
-(1, 'Default Admin', 'admin@test.com', '$2y$10$xHvogGcqQs8jhTPbFEDHJO9KWu2FCLgJ5XGxH.hHMA0BY1brgCkSG', '1A-98', 0, 1);
+(21, 'Default Admin', 'admin@test.com', '$2y$10$xHvogGcqQs8jhTPbFEDHJO9KWu2FCLgJ5XGxH.hHMA0BY1brgCkSG', '1A-98', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -979,16 +1002,16 @@ CREATE TABLE `user_departments` (
 --
 
 INSERT INTO `user_departments` (`user_id`, `department_id`) VALUES
-(1, 0),
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
-(1, 8),
-(1, 9);
+(21, 0),
+(21, 1),
+(21, 2),
+(21, 3),
+(21, 4),
+(21, 5),
+(21, 6),
+(21, 7),
+(21, 8),
+(21, 9);
 
 -- --------------------------------------------------------
 
@@ -1500,6 +1523,54 @@ INSERT INTO `vehicles` (`id`, `Make`, `Model`) VALUES
 (480, 'Zirconium', 'Stratum');
 
 --
+-- Table structure for table `weapons`
+--
+
+CREATE TABLE `weapons` (
+  `id` int(11) NOT NULL,
+  `weapon_type` varchar(255) NOT NULL,
+  `weapon_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `weapons`
+--
+
+INSERT INTO `weapons` (`id`, `weapon_type`, `weapon_name`) VALUES
+(1, 'Pistols', 'Pistol'),
+(2, 'Pistols', 'Combat-Pistol'),
+(3, 'Pistols', 'AP-Pistol'),
+(4, 'Pistols', 'Pistol-.50'),
+(5, 'Pistols', 'SNS-Pistol'),
+(6, 'Pistols', 'Heavy-Pistol'),
+(7, 'Pistols', 'Vintage-Pistol'),
+(8, 'Sub-Machine-Guns', 'Micro-SMG'),
+(9, 'Sub-Machine-Guns', 'SMG'),
+(10, 'Sub-Machine-Guns', 'Assault-SMG'),
+(11, 'Sub-Machine-Guns', 'Gusenberg-Sweeper'),
+(12, 'Shotguns', 'Pump-Shotgun'),
+(13, 'Shotguns', 'Sawed-off-Shotgun'),
+(14, 'Shotguns', 'Assault-Shotgun'),
+(15, 'Shotguns', 'Bullpup-Shotgun'),
+(16, 'Shotguns', 'Heavy-Shotgun'),
+(17, 'Shotguns', 'Musket'),
+(18, 'Light-Machine-Guns', 'MG'),
+(19, 'Light-Machine-Guns', 'Combat-MG'),
+(20, 'Assault-Rifles', 'Assault-Rifle'),
+(21, 'Assault-Rifles', 'Carbine-Rifle'),
+(22, 'Assault-Rifles', 'Advanced-Rifle'),
+(23, 'Assault-Rifles', 'Special-Carbine'),
+(24, 'Assault-Rifles', 'Bullpup-Rifle'),
+(25, 'Sniper-Rifles', 'Sniper-Rifle'),
+(26, 'Sniper-Rifles', 'Heave-Sniper'),
+(27, 'Sniper-Rifles', 'Marksman-Rifle'),
+(28, 'Heavy', 'RPG'),
+(29, 'Heavy', 'Minigun'),
+(30, 'Heavy', 'Homing-Launcher'),
+(31, 'Heavy', 'Grenade-Launcher'),
+(32, 'Heavy', 'Firework-Launcher');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -1627,7 +1698,6 @@ ALTER TABLE `ncic_warrants`
 --
 ALTER TABLE `ncic_weapons`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD UNIQUE KEY `serial` (`serial`(55)) USING BTREE,
   ADD KEY `name_id` (`name_id`) USING BTREE;
 
 --
@@ -1677,6 +1747,12 @@ ALTER TABLE `user_departments`
 ALTER TABLE `vehicles`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `weapons`
+--
+ALTER TABLE `weapons`
+  ADD PRIMARY KEY (`id`);
+  
 --
 -- AUTO_INCREMENT for dumped tables
 --
